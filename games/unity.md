@@ -31,7 +31,7 @@ From Windows/Linux to macOS:
 
 Games we couldn't manage to get running:
 
-From 32-Bits to 64-Bits
+From 32-Bits to 64-Bits:
 
 - [HuniePop](#huniepop)
 - [Jagged Alliance - Back in Action](#jagged-alliance---back-in-action)
@@ -228,7 +228,7 @@ NOTE: You need to mark the options window to "Only show if Option key is pressed
 | Installer MD5 | `803ed4cfe4a38ce3d451b5c594fd6877`                                                              |
 | Verified by   | boggydigital                                            |
 
-## From Windows/Linux to macOS:
+## From Windows/Linux to macOS
 
 ### Valheim
 
@@ -368,7 +368,7 @@ for more details.
 | Installer MD5 | `e1c6410d75542d157f85576feeafe5fe`                           |
 | Verified by   | M0REKZ (Steam)                                               |
 
-## From Windows/Linux to macOS:
+## From Windows/Linux to macOS
 
 ### Reventure
 
