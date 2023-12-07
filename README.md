@@ -19,8 +19,9 @@ Happy gaming!
 
 ## Unity guides
 
-- [Updating 32-bit Unity games to run on 64-bit macOS](common/unity-porting.md)
-  - Check out the list of games that are working and not working in the [Unity games section](games/unity.md)
+- [How to update 32-bits macOS Unity game to run on 64-bits macOS](common/unity-porting.md#from-32-bits-to-64-bits-macos)
+- [How to port Windows/Linux Unity games to macOS](common/unity-porting.md#from-windowslinux-to-macos)
+  - Check out the list of games that are working and not working for both guides in the [Unity games section](games/unity.md)
 - [Disable GPU skinning for Unity 2019+ games that are missing models in CrossOver](common/unity-disable-gpu-skinning.md)
 
 ## Source-ports guides

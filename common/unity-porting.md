@@ -18,6 +18,13 @@ These guides will teach you how to run *Windows, Linux and even 32-bits macOS Ga
 - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Modern Unity versions](#preparing-unity-player-modern-unity-versions)
 - &nbsp;&nbsp;&nbsp;[Porting the game](#porting-and-running-the-game)
 - [Troubleshoot common problems](#troubleshoot-common-problems)
+- &nbsp;[Bypass "Not available on your current platform" Steam Error](#bypass-not-available-on-your-current-platform-steam-error)
+- &nbsp;[Checking if the game doesn't run due to plugin architecture mismatch](#checking-if-the-game-doesnt-run-due-to-plugin-architecture-mismatch)
+- &nbsp;[Incorrect Unity standalone playback engine version](#incorrect-unity-standalone-playback-engine-version)
+- &nbsp;[Missing libraries (Fallback handler could not load library)](#missing-libraries-fallback-handler-could-not-load-library)
+- &nbsp;[Problems with graphics API](#problems-with-graphics-api)
+- &nbsp;[Unity 4.x.x games not launching](#unity-4xx-games-not-launching)
+- &nbsp;[Validating that you've downloaded the correct standalone player version](#validating-that-youve-downloaded-the-correct-standalone-player-version)
 
 
 # From 32-bits to 64-bits macOS
@@ -193,7 +200,7 @@ Guide made by [M0REKZ](https://github.com/M0REKZ) using information from:
 - [Same Unity 32-bit Guide from above](#from-32-bits-to-64-bits-macos)
 - [Porting a Windows Unity 4 Game](https://reddit.com/r/macgaming/comments/10ogws9/)
 
-If you can run Unity Windows games on Linux, Technically you could also do the same on Mac (In fact, the first guide was made following a linux one), however, since there are some dependences that are for Windows and Linux only (Like DirectX), only a selected amount of games are known to work with this method, also people does not have knowledge or interest in doing that due to same thing, so, this second section will teach you how to run games from other Platforms as if were a Native Apple Silicon/Intel macOS game.
+If you can run Unity Windows games on Linux, Technically you could also do the same on Mac (In fact, the "32 to 64 bits" guide was made following a guide made for linux), however, since there are some dependences that are for Windows and Linux only (Like DirectX), only a selected amount of games are known to work with this method, also people does not have knowledge or interest in doing that due to the same reasons, so this second section will teach you how to run games from other Platforms as if were a Native Apple Silicon/Intel macOS game.
 
 Also, most of the Steps are similar with the 32-bits to 64-bits guide, so make sure to check the other one when/if needed.
 
@@ -201,10 +208,10 @@ Sidenote: Technically, you could port Unity games from other different platforms
 
 ## Getting game data
 
-If you cant download the game normally, you should check these guides for that:
+If you can't download the game normally, you should check these guides:
 
 - [How to get Game Data from GOG](./gog.md)
-- [How to get Game Data from Steam](./steam.md) IMPORTANT NOTE: Most Steam games uses DRM, and when you launch them, you will get a Invalid Platform Error, *ITS HIGHLY RECOMMENDED to get game data from stores like GOG* instead.
+- [How to get Game Data from Steam](./steam.md) IMPORTANT NOTE: Most Steam games uses DRM, and when you launch them, you will get a Invalid Platform Error, to solve this, check [Bypass "Not available on your current platform" Steam Error](#bypass-not-available-on-your-current-platform-steam-error)
 - [How to get Game Data from Epic Games](./epic-games.md)
 
 Otherwise you should try other methods like Virtual Machines, Wine, etc...
@@ -215,7 +222,7 @@ Make sure to go back to this guide when you finish these steps:
 
 - [Determine Unity version (Method 3 only)](#method-3-checking-level0-file): You must install the exact same version, otherwise you will get an error, also, due to the game is not a mac app, only you can check the level0 file.
 - [Download Unity](#download-unity): You would prefer to download a Mac installer if possible.
-- [Extract Unity Without installing](#extract-the-player-without-installing): You could also install Unity like normally, but its not recommended, specially if you are thinking to port multiple games.
+- [Extract Unity Without installing](#extract-the-player-without-installing): You could also install Unity like you normally do with packages, but it's not recommended, specially if you are thinking to port multiple games.
 
 ## Preparing needed Unity Player
 
@@ -225,11 +232,11 @@ Regardless of how you've got `Unity`/`Unity.app` - either by installing or extra
 - Right-click / Ctrl+click, them select `Show Package Contents`
 - Navigate to `Contents`/`PlaybackEngines`/`MacStandaloneSupport`
 
-At some time Unity Player File structure changed a little, so this section will be splitted into 2 subsections.
+At certain point Unity Player File structure got modified, so this section will be splitted into 2 subsections.
 
 ### Preparing Unity Player (Old Unity versions)
 
-If you dont see a `Source` Folder at here, you downloaded an old Unity version, otherwise, go to [Preparing Unity Player (Modern Unity versions)](#preparing-unity-player-modern-unity-versions)
+If you don't see a `Source` Folder at here, you downloaded an old Unity version, otherwise, go to [Preparing Unity Player (Modern Unity versions)](#preparing-unity-player-modern-unity-versions)
 
 - Navigate to `Variations` Folder
 - Carefully observe folder names in that location:
@@ -251,11 +258,11 @@ Now we can start porting the game, go to [Porting and running the game](#porting
 
 In case you find a `Source` folder Inside, you downloaded a modern Unity version, otherwise go to [Preparing Unity Player (Old Unity versions)](#preparing-unity-player-old-unity-versions)
 
-Modern Unity Player is a little bit more complicated than the old ones, but actually you can get some games working, also, in case that the game is made on `Unity 2020.2 Alpha 21` or above, it *could run native on apple silicon*. (NOTE: due to at `2020.2 alpha 21` Apple Silicon support was very initial, you must expect a LOT of bugs, in that case you better try both Intel 64 Bits/Apple Silicon Players)
+Modern Unity Player is a little bit more complicated than the old ones, but actually you can get some games working, also, in case that the game is made on `Unity 2020.2 Alpha 21` or above, it *could run native on apple silicon*. (NOTE: due to at `2020.2 alpha 21` Apple Silicon support was very initial, you must expect a LOT of bugs, in that case you could better try both Intel 64 Bits/Apple Silicon Players)
 
 - Navigate to `Variations` Folder
 - Carefully observe folder names in that location, depending of Plugin architecture support or the early Apple Silicon Support, you can select one of these:
-    - You'll prefer `macos_x64_player_nondevelopment_mono` folder in case you are using an Intel Mac, or some of the plugins dont have Apple Silicon Support.
+    - You'll prefer `macos_x64_player_nondevelopment_mono` folder in case you are using an Intel Mac, or some of the plugins don't have Apple Silicon Support.
     - Otherwise, you would prefer `macos_arm64_player_nondevelopment_mono` for better perfomace on M1 Mac
     - The folder `macos_x64arm64_player_nondevelopment_mono` contains a Universal 2 Unity Player (for Intel and M1), may be useful in certain situations
     - NOTE: Folder names may vary at different Unity versions
@@ -264,7 +271,7 @@ Modern Unity Player is a little bit more complicated than the old ones, but actu
 - IMPORTANT: Make sure that these files are inside, otherwise, you must copy them from the `PlaybackEngines`/`MacStandaloneSupport` Folder:
     - Inside `Contents` must be a folder named `MonoBleedingEdge`, if its not here, copy it from: `PlaybackEngines`/`MacStandaloneSupport`/`MonoBleedingEdge`
     - Inside `Contents`/`Resources` must be a File named `MainMenu.nib`, if its not here, copy it from: `PlaybackEngines`/`MacStandaloneSupport`/`Source`/`Player`/`MacPlayer`/`MacPlayerEntryPoint`/`Resources`/`MainMenu.nib`
-        - IMPORTANT NOTE: ¡¡Check the file extension, dont be confused with `MainMenu.xib`!!
+        - IMPORTANT NOTE: ¡¡Check the file extension, don't get confused with `MainMenu.xib`!!
     - Inside `Contents` must be a file named `Info.plist`, if not, copy it from: `PlaybackEngines`/`MacStandaloneSupport`/`Source`/`Player`/`MacPlayer`/`MacPlayerEntryPoint`/`Info.plist`
     - Inside `Contents`/`Frameworks` must be some libraries, including `libmonobdwgc-2.0.dylib` and `libMonoPosixHelper.dylib`, if not, copy them all from: `PlaybackEngines`/`MacStandaloneSupport`/`Frameworks`/`libmonoXXX.dylib`
 
@@ -274,7 +281,7 @@ IMPORTANT: Now we need to Modify some strings from `Contents`/`Info.plist`, othe
 - Find and Replace the next strings:
     - replace `UNITY_BUNDLE_IDENTIFIER` at `<key>CFBundleIdentifier</key>` with something like `unity.SomeCompany.gamename-Custom` replacing `gamename` with the name of your game.
     - replace `UNITY_PLAYER_BUNDLE_NAME` at `<key>CFBundleName</key>` with the name of the game.
-    - if necessary, replace `UnityPlayerExec` at `<key>CFBundleExecutable</key>` with the correct name of the executable file at `MacOS` Folder (Most times is named `UnityPlayer`)
+    - if necessary, replace `UnityPlayerExec` at `<key>CFBundleExecutable</key>` with the correct name of the executable file at `MacOS` Folder (Most times is just named `UnityPlayer`)
     - (Optionally) replace `UNITY_PLAYER_BUNDLE_VERSION` at `<key>CFBundleShortVersionString</key>` with a custom version number.
 
 Now, assuming that you actually [have the game data](#getting-game-data):
@@ -309,52 +316,33 @@ Sometimes the game fails to run despite your best efforts. The best way to debug
 
 - NOTE: Sometimes command-line output doesn't work, in those cases consider adding log file output: `./<GameTitle> -logfile <location-of-logfile>`, where `<location-of-logfile>` is something like `~/Downloads/unity_log.txt`
 
-## Incorrect Unity standalone playback engine version
+## Bypass `Not available on your current platform` Steam Error
 
-You might see: `Invalid serialized file version. File: "/Applications/<GamePackage>/Contents/Resources/Data/globalgamemanagers. Expected version: <expected_version>. Actual version: <actual_version>.` (e.g. `Expected version: 5.6.4f1. Actual version: 5.6.4p4.`)
+*This error is not present at 32-bits to 64-bits games*
 
-- Make sure you find and download the correct expected version, see [Determine Unity version](#determine-unity-version) and [Download Unity](#download-unity)
+You can actually avoid Steam Client trying to launch the non-macOS game by giving the Steam appid to the game itself.
 
-## Unity 4.x.x games not launching
+To obtain the game's appid, look at the Steam Store URL:
 
-[Reddit user HomeStarRunnerTron](https://www.reddit.com/user/HomeStarRunnerTron/) troubleshooting tip:
+Example: 'https://store.steampowered.com/app/477160/Human_Fall_Flat/'
 
-`All the Unity v4 games that I tested (which were all small indie projects) don't launch at all unless I click on the Input tab before starting. I think that reinitializes the keyboard mapping or something. I don't know if there's a way around this step, but I have to do this every time for those games before they'll launch.`
+Where '477160' is the game's appid.
 
-## Validating that you've downloaded the correct standalone player version
+### Add `steam_appid.txt` file
 
-Verify that the prepared version of the player is the correct one:
+Add a raw text file that contains the game Steam appid at the same game directory (The file location could vary in different games, you could try to put it at the MacOS Folder inside the app, or the same folder where the app is located)
 
-- Start [`Terminal.app`](https://support.apple.com/guide/terminal/welcome/mac)
-- Navigate to the location of the player you previously discovered above, under the path `Contents/PlaybackEngines/MacStandaloneSupport/Variations` (e.g. `cd /Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/Variations/macosx64_nondevelopment_mono/UnityPlayer.app/Contents/MacOS`)
-- Run the following command: `strings UnityPlayer | grep <unity-version>`, e.g. `strings UnityPlayer | grep 4.7.0f1`
-- Observe the output:
+### Add `SteamAppId` to Info.plist
 
-**Correct player version**
+Open Info.Plist with a text editor and add the follow property:
 
-- The output contains multiple strings with that version, something like: `Invalid serialized file version. File: "%s". Expected version: 4.7.0f1. Actual version: %s.`
+    <key>LSEnvironment</key>
+    <dict>
+      <key>SteamAppId</key>
+      <string>appid</string>
+    </dict>
 
-**Incorrect player version**
-
-- If the output doesn't contain lines with that version - it's likely that you've got a wrong version and need to re-download the correct one: see [Determine Unity version](#determine-unity-version) and [Download Unity](#download-unity).
-
-## Problems with graphics API
-
-If the game is using an incompatible Graphics API (like DirectX11) you can try changing it to OpenGl, Vulkan, or Metal by adding one of these flags at running Unity Player:
-
-- For Metal: `-force-metal`
-
-- For OpenGl: `-force-glcore` or `-force-glcoreXY` where `XY` is the version number
-
-- For Vulkan: `-force-vulkan`
-
-For more information check [Unity Standalone Player command line arguments](https://docs.unity3d.com/Manual/PlayerCommandLineArguments.html)
-
-## Missing libraries (`Fallback handler could not load library`)
-
-In some cases you should check Player log file and see if the libraries are in the wrong location, in that case move the libraries to the listed path.
-
-`In other cases` the library is missing from anywhere at the game data and you must get it from the internet or from another Unity game, if possible, preferably you should get the same version that came with the game, also [make sure that the plugin have the same architecture that the Player being used](#checking-if-the-game-doesnt-run-due-to-plugin-architecture-mismatch), in case that the plugin is not available on the needed architecture, you could try to compile it.
+Where `appid` is the game appid. Its unknown if this works with old Unity versions.
 
 ## Checking if the game doesn't run due to plugin architecture mismatch
 
@@ -385,3 +373,50 @@ If plugins are bundles:
 
 - Navigate to each bundle `Contents/MacOS` and verify all binaries, e.g. `CSteamworks.bundle/Contents/MacOS` might have `CSteamworks`, `libsteam_api.dylib`, etc.
 - Apply steps in the `If plugins are individual files:` above to validate those binaries
+
+## Incorrect Unity standalone playback engine version
+
+You might see: `Invalid serialized file version. File: "/Applications/<GamePackage>/Contents/Resources/Data/globalgamemanagers. Expected version: <expected_version>. Actual version: <actual_version>.` (e.g. `Expected version: 5.6.4f1. Actual version: 5.6.4p4.`)
+
+- Make sure you find and download the correct expected version, see [Determine Unity version](#determine-unity-version) and [Download Unity](#download-unity)
+
+## Problems with graphics API
+
+If the game is using an incompatible Graphics API (like DirectX11) you can try changing it to OpenGl, Vulkan, or Metal by adding one of these flags at running Unity Player:
+
+- For Metal: `-force-metal`
+
+- For OpenGl: `-force-glcore` or `-force-glcoreXY` where `XY` is the version number
+
+- For Vulkan: `-force-vulkan`
+
+For more information check [Unity Standalone Player command line arguments](https://docs.unity3d.com/Manual/PlayerCommandLineArguments.html)
+
+## Missing libraries (`Fallback handler could not load library`)
+
+In some cases you should check Player log file and see if the libraries are in the wrong location, in that case move the libraries to the listed path.
+
+`In other cases` the library is missing from anywhere at the game data and you must get it from the internet or from another Unity game, if possible, preferably you should get the same version that came with the game, also [make sure that the plugin have the same architecture that the Player being used](#checking-if-the-game-doesnt-run-due-to-plugin-architecture-mismatch), in case that the plugin is not available on the needed architecture, you could try to compile it.
+
+## Unity 4.x.x games not launching
+
+[Reddit user HomeStarRunnerTron](https://www.reddit.com/user/HomeStarRunnerTron/) troubleshooting tip:
+
+`All the Unity v4 games that I tested (which were all small indie projects) don't launch at all unless I click on the Input tab before starting. I think that reinitializes the keyboard mapping or something. I don't know if there's a way around this step, but I have to do this every time for those games before they'll launch.`
+
+## Validating that you've downloaded the correct standalone player version
+
+Verify that the prepared version of the player is the correct one:
+
+- Start [`Terminal.app`](https://support.apple.com/guide/terminal/welcome/mac)
+- Navigate to the location of the player you previously discovered above, under the path `Contents/PlaybackEngines/MacStandaloneSupport/Variations` (e.g. `cd /Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/Variations/macosx64_nondevelopment_mono/UnityPlayer.app/Contents/MacOS`)
+- Run the following command: `strings UnityPlayer | grep <unity-version>`, e.g. `strings UnityPlayer | grep 4.7.0f1`
+- Observe the output:
+
+**Correct player version**
+
+- The output contains multiple strings with that version, something like: `Invalid serialized file version. File: "%s". Expected version: 4.7.0f1. Actual version: %s.`
+
+**Incorrect player version**
+
+- If the output doesn't contain lines with that version - it's likely that you've got a wrong version and need to re-download the correct one: see [Determine Unity version](#determine-unity-version) and [Download Unity](#download-unity).

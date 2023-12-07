@@ -43,7 +43,7 @@ From 32-Bits to 64-Bits
 
 From Windows/Linux to macOS:
 
-- Template
+- Reventure(#reventure)
 
 
 [Games made below Unity 4.2 that can not be updated](#games-below-unity-42-that-can-not-be-updated)
@@ -232,7 +232,7 @@ NOTE: You need to mark the options window to "Only show if Option key is pressed
 
 ### Valheim
 
-The user [timkurvers](https://github.com/timkurvers) developed a installer script to do the whole porting process, he even included a demonstration video thatt can be found on the link below
+The user [timkurvers](https://github.com/timkurvers) developed a installer script to do the whole porting process, he even included a demonstration video that can be found on the link below
 
 |               |                                                                                                 |
 |---------------|:------------------------------------------------------------------------------------------------|
@@ -387,7 +387,7 @@ Also, i used `Galaxy.bundle` Plugin from [Semblance](#semblance) since i could n
 
 # Games below Unity 4.2 that can not be updated
 
-Unity 64-Bits Support was added at version 4.2, due to that, the following games actually can not be updated using this method:
+Unity 64-Bits Support was added at version 4.2, due to that, the following mac games actually can not be updated by using this methods:
 
 |  Game Name                                 | Unity version  |  Verified by   |
 |--------------------------------------------|:---------------|:---------------|
