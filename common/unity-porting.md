@@ -330,11 +330,11 @@ Where '477160' is the game's appid.
 
 ### Add `steam_appid.txt` file
 
-Add a raw text file that contains the game Steam appid at the same game directory (The file location could vary in different games, you could try to put it at the MacOS Folder inside the app, or the same folder where the app is located)
+Add a raw text file that contains the game appid at the same game directory (The file location could vary in different games, you could try to put it at the MacOS Folder inside the app, or the same folder where the app is located)
 
 ### Add `SteamAppId` to Info.plist
 
-Open Info.Plist with a text editor and add the follow property:
+Open Info.Plist with a text editor and add the following property:
 
     <key>LSEnvironment</key>
     <dict>
@@ -342,7 +342,7 @@ Open Info.Plist with a text editor and add the follow property:
       <string>appid</string>
     </dict>
 
-Where `appid` is the game appid. Its unknown if this works with old Unity versions.
+Where `appid` is the game appid, it's unknown if this works with old Unity versions.
 
 ## Checking if the game doesn't run due to plugin architecture mismatch
 
